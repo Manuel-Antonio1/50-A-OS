@@ -494,9 +494,9 @@ const RSVPForm = (() => {
     const data = Object.fromEntries(formData.entries());
 
     // URL DE TU BACKEND REAL
-    const urlBackend = 'https://onrender.com';
+    const urlBackend = 'https://backend-invitacion-cg2l.onrender.com';
 
-    const response = await fetch('https://onrender.com', {
+    const response = await fetch('https://backend-invitacion-cg2l.onrender.com', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
