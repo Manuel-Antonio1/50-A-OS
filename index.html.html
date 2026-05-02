@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✏️ EDITAR: Título de la pestaña del navegador -->
+  <title> Manuel Rodolfo</title>
+
+  <!-- Fuentes elegantes desde Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet" />
+
+  <!-- Hoja de estilos separada -->
+  <link rel="stylesheet" href="Styles.css" />
+ 
+  
+</head>
+
+<div id="overlay-inicio" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#050505; z-index:10000; display:flex; flex-direction:column; align-items:center; justify-content:center; transition: all 1s ease;">
+      <h2 class="section-title">Descubre el mensaje</h2>
+  
+
+  <!-- Contenedor del Sobre -->
+  <div class="sobre-container" onclick="comenzarExperiencia()" style="cursor:pointer; position:relative; width:320px; height:200px; background:#121212; border-radius:4px; box-shadow:0 30px 60px rgba(0,0,0,0.8); border:1px solid #222; display:flex; align-items:center; justify-content:center; transition: transform 0.4s ease;">
+    
+    <!-- Pliegues del sobre (Efecto visual) -->
+    <div style="position:absolute; top:0; width:0; height:0; border-left:160px solid transparent; border-right:160px solid transparent; border-top:100px solid #1a1a1a; z-index:1;"></div>
+    <div style="position:absolute; bottom:0; width:0; height:0; border-left:160px solid transparent; border-right:160px solid transparent; border-bottom:100px solid #161616; z-index:1;"></div>
+
+    <!-- Sello de Oro (El botón de acción) -->
+    <div id="sello-oro" style="width:65px; height:65px; background:radial-gradient(circle, #f5d17e 0%, #c5a059 100%); border-radius:50%; box-shadow:0 0 25px rgba(197,160,89,0.5), inset 0 0 10px rgba(0,0,0,0.3); z-index:10; border:2px solid #b38f4d; display:flex; align-items:center; justify-content:center;">
+       <span style="color:#4a3b1d; font-size:1.4rem; filter:drop-shadow(0 1px 1px rgba(255,255,255,0.3));">✦</span>
+    </div>
+
+    <!-- Brillo del sello -->
+    <div style="position:absolute; width:75px; height:75px; border-radius:50%; border:1px solid rgba(197,160,89,0.3); z-index:9; animation: pulse-gold 2s infinite;"></div>
+  </div>
+
+  <p style="font-family:'Cinzel', serif; color:#c5a059; margin-top:40px; letter-spacing:4px; font-size:0.7rem; text-transform:uppercase; opacity:0.6;">
+    Toca el sello para abrir
+  </p>
+</div>
+
+<!-- ETIQUETA DE AUDIO -->
+<audio id="musica-fondo" loop>
+  <source src="/song/caminito-de-huancayo-adios-juventud-huayno-orq-amigos-del-mantaro_dYEO7GLh.mp3" type="audio/mpeg">
+</audio>
+
+
+
+
+
+
+<body>
+
+  <!-- ========================================================
+       CANVAS DE PARTÍCULAS DORADAS (fondo animado)
+       El canvas lo controla script.js
+  ======================================================== -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- ========================================================
+       SECCIÓN 1: ENCABEZADO / HERO
+       Nombre del festejado y número 50 destacado
+  ======================================================== -->
+  <header class="hero" id="inicio">
+
+    <!-- Aros decorativos de fondo -->
+    <div class="hero-ring ring-1"></div>
+    <div class="hero-ring ring-2"></div>
+    <div class="hero-ring ring-3"></div>
+
+    <!-- Etiqueta superior -->
+  
+    <span class="hero-badge">Una noche para recordar</span>
+
+    <!-- Número 50 gigante -->
+    <div class="hero-number" aria-hidden="true">50</div>
+
+    <!-- ✏️ EDITAR: Nombre del festejado -->
+    <h1 class="hero-name">Manuel Rodolfo</h1>
+
+    <!-- Subtítulo -->
+    <p class="hero-subtitle">Un legado de momentos inolvidables</p>
+
+    <!-- Línea decorativa con diamante -->
+    <div class="divider-ornament">
+      <span class="divider-line"></span>
+      <span class="divider-diamond">◆</span>
+      <span class="divider-line"></span>
+    </div>
+
+    <!-- ✏️ EDITAR: Fecha del evento -->
+    <p class="hero-date">Sábado 16 de Mayo de 2026 · 8:00 PM</p>
+
+    <!-- Botón de llamada a acción -->
+    <a href="#rsvp" class="btn-gold">Confirmar Asistencia</a>
+
+  </header>
+
+
+  <!-- ========================================================
+       SECCIÓN 3: ESTÁS INVITADO
+       Mensaje de invitación principal
+  ======================================================== -->
+  <section class="invite-section reveal" id="invitacion">
+
+    <div class="invite-inner">
+
+      <!-- Icono decorativo -->
+      <div class="invite-icon" aria-hidden="true">✉</div>
+
+      
+      <h2 class="section-title">Estás Invitado</h2>
+
+      <!-- ✏️ EDITAR: Texto del mensaje de invitación -->
+      <p class="invite-text">
+        Con todo el amor y la alegría del mundo, te invito a compartir
+        conmigo este momento tan especial: la celebración de mis
+        <strong>50 años de vida</strong>. Tu presencia hará esta noche
+        verdaderamente inolvidable. Será una velada llena de música,
+        buenos momentos y mucho cariño.
+        
+      </p>
+      <p ><strong>Manuel Rofoldo</strong></p>
+
+      
+
+    </div>
+  </section>
+
+  <!-- ========================================================
+       SECCIÓN 2: GALERÍA DE FOTOS
+       Tres fotos del festejado (reemplaza las imágenes)
+  ======================================================== -->
+  <section class="gallery-section" id="galeria">
+
+    <p class="section-label">Momentos Especiales</p>
+    <h2 class="section-title">Una Vida de Recuerdos</h2>
+
+    <div class="gallery-grid">
+
+      <!-- ✏️ EDITAR: Reemplaza src="" con la ruta de tu foto -->
+      <div class="gallery-card" data-delay="0">
+        <div class="gallery-img-wrap">
+          <img src="/img/Captura de pantalla 2026-05-01 164359.png" alt="Foto 1 de Manuel" onerror="this.parentElement.classList.add('no-img')" />
+          <div class="gallery-overlay">
+            <span class="gallery-overlay-icon">✦</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ✏️ EDITAR: Reemplaza src="" con la ruta de tu foto -->
+      <div class="gallery-card" data-delay="150">
+        <div class="gallery-img-wrap featured">
+          <img src="/img/WhatsApp Image 2026-05-01 at 4.47.42 PM.jpeg" alt="Foto 2 de Manuel" onerror="this.parentElement.classList.add('no-img')" />
+          <div class="gallery-overlay">
+            <span class="gallery-overlay-icon">✦</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ✏️ EDITAR: Reemplaza src="" con la ruta de tu foto -->
+      <div class="gallery-card" data-delay="300">
+        <div class="gallery-img-wrap">
+          <img src="/img/centro.jpeg" alt="Foto 3 de Manuel" onerror="this.parentElement.classList.add('no-img')" />
+          <div class="gallery-overlay">
+            <span class="gallery-overlay-icon">✦</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  
+
+
+  <!-- ========================================================
+       SECCIÓN 4: DETALLES DEL EVENTO
+       Fecha, hora, lugar y código de vestimenta
+  ======================================================== -->
+  <section class="details-section reveal" id="detalles">
+
+    <p class="section-label">Todo lo que necesitas saber</p>
+    <h2 class="section-title">Detalles</h2>
+
+    <div class="details-grid">
+
+      <!-- Tarjeta Fecha -->
+      <!-- ✏️ EDITAR: Cambia la fecha del evento -->
+      <div class="detail-card reveal">
+        <div class="detail-icon-wrap">
+          <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="4" width="18" height="18" rx="2"/>
+            <line x1="3" y1="9" x2="21" y2="9"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+          </svg>
+        </div>
+        <p class="detail-label">Fecha</p>
+        <p class="detail-value">Sábado<br>16 de Mayo<br>2026</p>
+      </div>
+
+      <!-- Tarjeta Hora -->
+      <!-- ✏️ EDITAR: Cambia la hora del evento -->
+      <div class="detail-card reveal">
+        <div class="detail-icon-wrap">
+          <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="9"/>
+            <polyline points="12 7 12 12 16 14"/>
+          </svg>
+        </div>
+        <p class="detail-label">Hora</p>
+        <p class="detail-value">8:00 PM<br><small>Puntualidad<br>apreciada</small></p>
+      </div>
+
+      <!-- Tarjeta Lugar -->
+      <!-- ✏️ EDITAR: Cambia nombre y dirección del lugar -->
+      <a href="https://maps.app.goo.gl/zTKkUaNFDbvUj9S9A" target="_blank" style="text-decoration: none; color: inherit;">
+      <div class="detail-card reveal">
+        <div class="detail-icon-wrap">
+          <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+            <circle cx="12" cy="9" r="2.5"/>
+          </svg>
+        </div>
+        <p class="detail-label">Lugar</p>
+        <p class="detail-value">Las Palmeras de Carabayllo<br><small>Presiona el recuadro para visualizar la ubicación en el mapa</small></p>
+      </div>
+      </a>
+
+     
+
+    </div>
+
+    <!-- Countdown timer (contador regresivo) -->
+    <div class="countdown reveal" id="countdown">
+      <p class="countdown-label">Faltan</p>
+      <div class="countdown-grid">
+        <div class="countdown-unit">
+          <span class="countdown-num" id="cd-days">00</span>
+          <span class="countdown-txt">Días</span>
+        </div>
+        <span class="countdown-sep">:</span>
+        <div class="countdown-unit">
+          <span class="countdown-num" id="cd-hours">00</span>
+          <span class="countdown-txt">Horas</span>
+        </div>
+        <span class="countdown-sep">:</span>
+        <div class="countdown-unit">
+          <span class="countdown-num" id="cd-mins">00</span>
+          <span class="countdown-txt">Minutos</span>
+        </div>
+        <span class="countdown-sep">:</span>
+        <div class="countdown-unit">
+          <span class="countdown-num" id="cd-secs">00</span>
+          <span class="countdown-txt">Segundos</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+
+
+
+
+<!-- COMENTARIOS  DE CARUSSEL  -->
+<section class="testimonials-section reveal">
+
+  <h2 class="section-title">PALABRAS DE AFECTO</h2>
+
+  <div class="testimonial-wrapper" id="testimonial-wrapper">
+    <div class="testimonial-track" id="testimonial-track">
+      
+      <!-- === BLOQUE ORIGINAL (Cinta 1) === -->
+     
+      <div class="testimonial-card-item">
+        <div class="testimonial-img"><img src="/img/MANUELITO.jpeg" alt=""></div>
+        <p class="testimonial-text">"Gracias, papá, por enseñarme sobre la vida y por tu gran ejemplo. Tus valores y consejos siempre guían mi camino."</p>
+        <p class="testimonial-author">— Tu hijo Manuelito —</p>
+      </div>
+
+      <div class="testimonial-card-item">
+        <div class="testimonial-img"><img src="/img/kaori.jpeg" alt=""></div>
+        <p class="testimonial-text">"Querido padre gracias por enseñarme muchas cosas"</p>
+        <p class="testimonial-author">— Tu hija Kaori —</p>
+      </div>
+
+      <div class="testimonial-card-item">
+        <div class="testimonial-img"><img src="/img/yovana.jpeg" alt=""></div>
+        <p class="testimonial-text">"Gracias papá por ser mi ejemplo y apoyo de siempre "</p>
+        <p class="testimonial-author">— Tu Hija Yovana —</p>
+      </div>
+
+      <div class="testimonial-card-item">
+        <div class="testimonial-img"><img src="/img/PAOLA.jpeg" alt=""></div>
+        <p class="testimonial-text">"Papi eres un hombre trabajador y te admiro, te amo mucho "</p>
+        <p class="testimonial-author">— Tu Hija Paula —</p>
+      </div>
+
+
+
+
+
+
+      <!-- === BLOQUE REPETIDO (Cinta 2 - Copia exacta para el bucle) === -->
+      <div class="testimonial-card-item">
+        <div class="testimonial-img"><img src="/img/MANUELITO.jpeg" alt=""></div>
+        <p class="testimonial-text">"Gracias, papá, por enseñarme sobre la vida y por tu gran ejemplo. Tus valores y consejos siempre guían mi camino."</p>
+        <p class="testimonial-author">— Tu hijo Manuelito —</p>
+      </div>
+
+      <div class="testimonial-card-item">
+        <div class="testimonial-img"><img src="/img/kaori.jpeg" alt=""></div>
+        <p class="testimonial-text">"Querido padre gracias por enseñarme muchas cosas"</p>
+        <p class="testimonial-author">— Tu hija Kaori —</p>
+      </div>
+
+      <div class="testimonial-card-item">
+        <div class="testimonial-img"><img src="/img/yovana.jpeg" alt=""></div>
+        <p class="testimonial-text">"Gracias papá por ser mi ejemplo y apoyo de siempre "</p>
+        <p class="testimonial-author">— Tu Hija Yovana —</p>
+      </div>
+
+      <div class="testimonial-card-item">
+        <div class="testimonial-img"><img src="/img/PAOLA.jpeg" alt=""></div>
+        <p class="testimonial-text">"Papi eres un hombre trabajador y te admiro, te amo mucho "</p>
+        <p class="testimonial-author">— Tu Hija Paula —</p>
+      </div>
+
+    </div>
+</div>
+
+ <!--<div style="margin-top: 40px; text-align: center;">
+    <button class="btn-gold" onclick="enviarMensajeWhatsApp()">Enviar un mensaje</button>
+  </div> -->
+</section>
+
+
+
+  <!-- ========================================================
+       SECCIÓN 5: GRUPO MUSICAL
+       Información del grupo que tocará en la fiesta
+  ======================================================== -->
+  <section class="band-section reveal" id="musica">
+    <h2 class="section-title">Grupo Musical</h2>
+    <p class="section-label">Música en Vivo</p>
+    <div class="band-inner">
+
+      <div class="band-text">
+        
+        <!-- ✏️ EDITAR: Nombre del grupo musical -->
+         
+        <h2 class="section-title left">YIZA PERÚ <br>
+
+        <!-- ✏️ EDITAR: Descripción del grupo -->
+        <p class="band-desc">
+          Una noche llena de ritmo y elegria. El Grupo Musical YIZA
+          pondrá el alma ayacuchana en cada canción, con los mejores éxitos
+          para hacerte bailar sin parar. Música en vivo que convertirá esta 
+          celebración en un momento inolvidable.
+        </p>
+
+        <!-- Géneros musicales como chips -->
+        <!-- ✏️ EDITAR: Cambia los géneros según el grupo -->
+        <div class="band-genres">
+          <span class="genre-chip">Carnavales Ayacuchanos</span>
+          <span class="genre-chip">Huyanos</span>
+           <span class="genre-chip">Toril</span>
+        </div>
+      </div>
+
+      <!-- ✏️ EDITAR: Reemplaza src="" con foto del grupo musical -->
+      <div class="band-img-wrap">
+        <img src="/img/channels4_profile.jpg" alt="Grupo Musical YIZA" onerror="this.parentElement.classList.add('no-img')" />
+        <div class="band-img-deco"></div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================================
+       SECCIÓN 6: FRASE ESPECIAL / CITA
+       Una frase inspiradora o dedicatoria
+  ======================================================== -->
+  <section class="quote-section reveal">
+    <div class="quote-inner">
+      <span class="quote-mark">"</span>
+      <!-- ✏️ EDITAR: Cambia la frase o dedicatoria -->
+      <p class="quote-text">
+
+        Al hombre que nos enseñó el valor del trabajo y la pasión por el saber.
+        Gracias por ser el guía que nos corrige con sabiduría y el padre bueno
+        que nos lidera con el ejemplo.
+        
+      </p>
+      <!-- ✏️ EDITAR: Fuente de la frase -->
+      <p class="quote-source">— Con amor, tu familia</p>
+    </div>
+  </section>
+
+
+  <!-- ========================================================
+       SECCIÓN 7: CONFIRMA TU ASISTENCIA (RSVP)
+       Formulario para que los invitados confirmen
+  ======================================================== -->
+  <section class="rsvp-section reveal" id="rsvp">
+
+    <p class="section-label">Tu respuesta importa</p>
+    <h2 class="section-title">Confirma tu Asistencia</h2>
+
+    <div class="rsvp-box">
+
+      <!-- Esquinas decorativas del recuadro -->
+      <span class="corner corner-tl"></span>
+      <span class="corner corner-tr"></span>
+      <span class="corner corner-bl"></span>
+      <span class="corner corner-br"></span>
+
+      <!-- FORMULARIO -->
+      <form id="rsvp-form" novalidate>
+
+        <!-- Fila: Nombre y Apellido -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="nombre">Nombre Titular</label>
+            <!-- ✏️ EDITAR: placeholder a tu gusto -->
+            <input class="form-input" id="nombre" name="nombre" type="text" placeholder="Tu nombre" required />
+            <span class="form-error" id="err-nombre"></span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="apellido">Apellido Completo</label>
+            <input class="form-input" id="apellido" name="apellido" type="text" placeholder="Tu apellido" required />
+            <span class="form-error" id="err-apellido"></span>
+          </div>
+        </div>
+
+        <!-- Fila: familia y Acompañantes -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="numero"> Grupo /Familia</label>
+            <input class="form-input" id=" familia" name="familia" type="text" placeholder="Ej: Familia ... , Primos, Amigos" required/>
+            <span class="form-error" id="err-familia"></span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="acompanantes">Acompañantes</label>
+            <select class="form-input form-select" id="acompanantes" name="acompanantes">
+              <option value="0">Solo yo</option>
+              <option value="1">+ 1 persona</option>
+              <option value="2">+ 2 personas</option>
+              <option value="3">+ 3 personas</option>
+              <option value="4">+ 4 o más</option>
+            </select>
+          </div>
+        </div>
+
+        
+
+        <!-- Mensaje especial -->
+        <div class="form-group">
+          <label class="form-label" for="mensaje">Mensaje para el festejado </label>
+          <textarea class="form-input form-textarea" id="mensaje" name="mensaje" placeholder="Escribe unas palabras especiales para Manuel…"></textarea>
+        </div>
+        
+
+        <!-- Botón enviar -->
+        <button type="submit" class="btn-gold btn-full" id="btn-enviar">
+          <span class="btn-text"> Confirmar ✦</span>
+          <span class="btn-loading" aria-hidden="true">Enviando…</span>
+        </button>
+
+      </form>
+
+      <!-- Mensaje de éxito (se muestra tras enviar) -->
+      <div class="rsvp-success" id="rsvp-success" aria-live="polite">
+        <div class="success-icon">🥂</div>
+        <h3 class="success-title">¡Muchas Gracias!</h3>
+        <p class="success-text">Tu confirmación fue recibida. ¡Te esperamos para celebrar juntos este momento tan especial!</p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================================
+       SECCIÓN 8: FOOTER / PIE DE PÁGINA
+       Redes sociales, contacto y cierre
+  ======================================================== -->
+  <footer class="site-footer" id="footer">
+
+    <!-- Decoración superior del footer -->
+    <div class="footer-deco-top">
+      <span class="footer-line"></span>
+      <span class="footer-diamond">◆</span>
+      <span class="footer-line"></span>
+    </div>
+
+    <!-- Número 50 decorativo de fondo -->
+    <div class="footer-bg-number" aria-hidden="true">50</div>
+
+    <!-- Mensaje de cierre -->
+    <h2 class="footer-title">Gracias por tu Tiempo</h2>
+
+    <!-- ✏️ EDITAR: Mensaje del footer -->
+    <p class="footer-text">
+      Tu presencia es el mejor regalo.<br>
+      ¡Los esperamos con los brazos abiertos!
+    </p>
+
+
+
+
+
+     <div class="footer-deco-top">
+      <span class="footer-line"></span>
+      <span class="footer-diamond">◆</span>
+      <span class="footer-line"></span>
+    </div>
+
+
+
+
+    <!-- Línea de copyright -->
+    <!-- ✏️ EDITAR: Nombre y año -->
+    <p class="footer-copy">✦Landing page diseñada y desarrollada por Manuel Antonio ✦</p>
+    
+
+    <!-- Información de contacto -->
+    <div class="footer-contact">
+      <!-- ✏️ EDITAR: Teléfono de contacto -->
+      <a href="tel:+51921352015" class="footer-contact-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.14 19a19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-2.93-8.72A2 2 0 0 1 4.11 2H7.1a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+        <span>+51 921-352-015</span>
+      </a>
+
+      <!-- ✏️ EDITAR: Correo electrónico de contacto -->
+      <a href="manuel.vp.official@gmail.com" class="footer-contact-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+        <span>manuel.vp.official@gmail.com</span>
+      </a>
+    </div>
+
+  </footer>
+
+  <!-- Toast de notificación (aparece al enviar el formulario) -->
+  <div class="toast" id="toast" role="alert" aria-live="assertive">
+    ✦ ¡Confirmación enviada con éxito!
+  </div>
+
+  <!-- Botón "subir arriba" -->
+  <button class="scroll-top" id="scroll-top" aria-label="Volver arriba" title="Volver arriba">
+    ▲
+  </button>
+
+  <!-- Script separado -->
+  <script src="script.js"></script>
+
+</body>
+</html>
