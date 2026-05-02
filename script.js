@@ -531,7 +531,7 @@ const RSVPForm = (() => {
 
   try {
     // Reemplaza 'URL_DE_TU_BACKEND' por la URL que te dará Render para el Web Service
-    const response = await fetch('https://backend-invitacion-cg2l.onrender.com', {
+    const response = await fetch('https://onrender.com', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
