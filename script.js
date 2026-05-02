@@ -525,18 +525,26 @@ const RSVPForm = (() => {
    * Simula el envío del formulario
    * Aquí puedes conectar tu backend, EmailJS, Formspree, etc.
    */
-  function simulateSubmit() {
-    return new Promise((resolve) => {
-      // ✏️ AQUÍ puedes conectar tu API o servicio de formularios
-      // Ejemplos:
-      //   - Formspree: fetch('https://formspree.io/f/TU_ID', { method: 'POST', body: formData })
-      //   - EmailJS: emailjs.sendForm('SERVICE_ID', 'TEMPLATE_ID', form)
-      //   - Tu propio backend: fetch('/api/rsvp', { method: 'POST', ... })
+ async function simulateSubmit() {
+  const formData = new FormData(form);
+  const data = Object.fromEntries(formData.entries());
 
-      // Por ahora simula un delay de 1.2 segundos
-      setTimeout(resolve, 1200);
+  try {
+    // Reemplaza 'URL_DE_TU_BACKEND' por la URL que te dará Render para el Web Service
+    const response = await fetch('https://backend-invitacion-cg2l.onrender.com', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
     });
+
+    if (response.ok) {
+      return true;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return false;
   }
+}
 
   /**
    * Inicializa los eventos del formulario
