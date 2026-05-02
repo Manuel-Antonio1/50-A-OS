@@ -449,24 +449,15 @@ const Gallery = (() => {
 
 
 /* ============================================================
-   6. FORMULARIO RSVP
-   Validación de campos y simulación de envío
+   6. FORMULARIO RSVP - CONEXIÓN REAL
    ============================================================ */
 
 const RSVPForm = (() => {
 
   const form       = document.getElementById('rsvp-form');
-  const formWrap   = form ? form.parentElement : null; // puede ser null si no hay formulario
   const successMsg = document.getElementById('rsvp-success');
   const btnEnviar  = document.getElementById('btn-enviar');
 
-  /**
-   * Valida un campo individual
-   * @param {HTMLElement} input - el campo a validar
-   * @param {string}      errorId - ID del span donde mostrar el error
-   * @param {string}      message - mensaje de error si falla
-   * @returns {boolean}
-   */
   function validateField(input, errorId, message) {
     const errorEl = document.getElementById(errorId);
     const value   = input ? input.value.trim() : '';
@@ -482,119 +473,70 @@ const RSVPForm = (() => {
     return true;
   }
 
-  /**
-   * Valida todos los campos requeridos del formulario
-   * @returns {boolean} true si todo es válido
-   */
   function validateForm() {
     let isValid = true;
 
-    // Validar campo Nombre
-    if (!validateField(
-      document.getElementById('nombre'),
-      'err-nombre',
-      'Por favor ingresa tu nombre'
-    )) { isValid = false; }
+    if (!validateField(document.getElementById('nombre'), 'err-nombre', 'Por favor ingresa tu nombre')) { isValid = false; }
+    if (!validateField(document.getElementById('apellido'), 'err-apellido', 'Por favor ingresa tu apellido')) { isValid = false; }
+    if (!validateField(document.getElementById('familia'), 'err-familia', 'Por favor ingresa tu grupo/familia')) { isValid = false; }
 
-    // Validar campo Apellido
-    if (!validateField(
-      document.getElementById('apellido'),
-      'err-apellido',
-      'Por favor ingresa tu apellido'
-    )) { isValid = false; }
-
-    // Validar campo familia
-    if (!validateField(
-      document.getElementById('familia'),
-      'err-familia',
-      'Por favor ingresa familia'
-    )) { isValid = false; }
-
-
-    // Validar confirmación de asistencia
-    if (!validateField(
-      document.getElementById('asistencia'),
-      'err-asistencia',
-      'Por favor selecciona una opción'
-    )) { isValid = false; }
+    // CAMBIO IMPORTANTE: Usamos 'acompanantes' porque así está en tu HTML
+    if (!validateField(document.getElementById('acompanantes'), 'err-asistencia', 'Por favor selecciona una opción')) { isValid = false; }
 
     return isValid;
   }
 
   /**
-   * Simula el envío del formulario
-   * Aquí puedes conectar tu backend, EmailJS, Formspree, etc.
+   * ENVÍO REAL AL BACKEND DE RENDER
    */
- async function simulateSubmit() {
-  const formData = new FormData(form);
-  const data = Object.fromEntries(formData.entries());
+  async function simulateSubmit() {
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
 
-  try {
-    // Reemplaza 'URL_DE_TU_BACKEND' por la URL que te dará Render para el Web Service
-    const response = await fetch('https://onrender.com', {
+    // URL DE TU BACKEND REAL
+    const urlBackend = 'https://onrender.com';
+
+    const response = await fetch(urlBackend, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     });
 
-    if (response.ok) {
-      return true;
-    }
-  } catch (error) {
-    console.error("Error:", error);
-    return false;
+    if (!response.ok) throw new Error('Error en el servidor');
+    return true;
   }
-}
 
-  /**
-   * Inicializa los eventos del formulario
-   */
   function init() {
     if (!form) return;
 
-    // Limpiar estado de error al escribir en un campo
-    form.querySelectorAll('.form-input').forEach((input) => {
-      input.addEventListener('input', () => {
-        input.classList.remove('invalid');
-        // Limpiar el mensaje de error correspondiente
-        const errorId = 'err-' + input.id;
-        const errorEl = document.getElementById(errorId);
-        if (errorEl) errorEl.textContent = '';
-      });
-    });
-
-    // Evento de envío del formulario
     form.addEventListener('submit', async (e) => {
-      e.preventDefault(); // Previene el envío nativo del formulario
+      e.preventDefault();
 
-      // 1. Validar campos
       if (!validateForm()) return;
 
-      // 2. Mostrar estado de carga
-      if (btnEnviar) btnEnviar.classList.add('loading');
+      if (btnEnviar) {
+        btnEnviar.innerHTML = "ENVIANDO...";
+        btnEnviar.disabled = true;
+      }
 
       try {
-        // 3. Simular/ejecutar envío
         await simulateSubmit();
 
-        // 4. Ocultar formulario y mostrar mensaje de éxito
-        if (form)       form.style.display    = 'none';
-        if (successMsg) successMsg.style.display = 'block';
-
-        // 5. Mostrar toast de confirmación
-        Toast.show('✦ ¡Confirmación enviada con éxito!');
-
-        // 6. Hacer scroll suave al mensaje de éxito
+        // ÉXITO
+        if (form)       form.style.display = 'none';
         if (successMsg) {
+          successMsg.style.display = 'block';
           successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
       } catch (error) {
-        console.error('Error al enviar el formulario:', error);
-        // Mostrar error genérico
-        Toast.show('Hubo un error. Por favor intenta de nuevo.');
+        console.error('Error:', error);
+        alert('Hubo un error al conectar con el servidor. Inténtalo de nuevo.');
       } finally {
-        if (btnEnviar) btnEnviar.classList.remove('loading');
+        if (btnEnviar) {
+          btnEnviar.innerHTML = "CONFIRMAR";
+          btnEnviar.disabled = false;
+        }
       }
     });
   }
@@ -602,6 +544,9 @@ const RSVPForm = (() => {
   return { init };
 
 })();
+
+// ¡NO OLVIDES ESTA LÍNEA AL FINAL PARA QUE TODO ARRANQUE!
+RSVPForm.init();
 
 
 /* ============================================================
